@@ -9,7 +9,9 @@ exports.run = (client, message, params) => {
     const commandNames = Array.from(client.commands.keys());
     const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
     message.author.sendCode('asciidoc', `= Komut Listesi =\n\n[Komut hakkında bilgi için ${ayarlar.prefix}yardım <komut adı>]\n\n${client.commands.map(c => `${ayarlar.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`).join('\n')}`);
-  if (message.channel.type !== 'dm') 
+  if (message.channel.type !== 'dm') {
+    const ozelmesajkontrol = new Discord.RichEmbed()
+    message.channel.sendEmbed(ozelmesajkontrol) }
   } else {
     let command = params[0];
     if (client.commands.has(command)) {
@@ -28,7 +30,7 @@ exports.conf = {
 };
 
 exports.help = {
-  name: 'sa',
+  name: 'yardım',
   description: 'Tüm komutları gösterir.',
-  usage: 'sa [komut]'
+  usage: 'yardım [komut]'
 };
